@@ -37,16 +37,22 @@ export const joinTournament = async (req, res) => {
   }
 }
 
-// export const updateTournamentWithPlayerHands = async (req, res) => {
-//   const {tournamentId} = req.params
-//   const {hands} = req.body
+export const updateTournamentWithPlayerHands = async (req, res) => {
+  const { tournamentId } = req.params
+  const { hands } = req.body
 
-//   try {
+  try {
+    const updatedTournament = await Tournament.findByIdAndUpdate(
+      { _id: tournamentId },
+      { hands },
+      { new: true }
+    )
 
-//   } catch (err) {
-//     console.log(err)
-//   }
-// }
+    res.status(200).json(updateTournamentWithPlayerHands)
+  } catch (err) {
+    console.log(err)
+  }
+}
 
 export const updateTournamentWithWinner = async (req, res) => {
   const { tournamentId } = req.params

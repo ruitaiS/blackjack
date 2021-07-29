@@ -23,11 +23,14 @@ app.use("/tournament", tournamentRoutes)
 app.get("/", (request, response) => response.send("welcome to blackjack api"))
 
 mongoose
-  .connect(process.env.MONOG_URL, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    useCreateIndex: true
-  })
+  .connect(
+    "mongodb+srv://blackjack:pDCD6BWZxbMJgN8i@cluster0.2hjrp.mongodb.net/blackjack?retryWrites=true&w=majority",
+    {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+      useCreateIndex: true
+    }
+  )
   .then(() => {
     app.listen(4000, (res, req) => {
       console.log("app started at port 4000")
