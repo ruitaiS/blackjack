@@ -18,11 +18,12 @@ class Hand extends Component{
     */
 
     render(){
-        let rank = 3
+        let rank = 6
+        let suit = 'C'
         return(
             <div>
                 This is a hand of Cards
-                <img src={process.env.PUBLIC_URL + '/img/3C.png'} alt="card"/>
+                <img src={process.env.PUBLIC_URL + '/img/'+rank.toString()+suit+'.png'} alt="card"/>
             </div>
         )
     }
