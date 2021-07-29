@@ -1,7 +1,7 @@
 const BlackJack = {
   newDeck: numOfDecks => {
     const suits = ["S", "H", "D", "C"]
-    const ranks = ["2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A"]
+    const ranks = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13"]
     const deck = []
 
     for (let i = 0; i < numOfDecks; i++) {
