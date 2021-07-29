@@ -22,7 +22,8 @@ export const signUp = async (req, res) => {
 
       res.status(200).json({ token })
     }
-    res.status(400).json({ message: "Something wrong with username/password" })
+    // if user exists error
+    res.status(400).json({ message: "User already exists with that username" })
   } catch (err) {
     res.status(400).json({ message: "Something wrong with username/password" })
   }
