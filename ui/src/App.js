@@ -1,5 +1,7 @@
+import Hand from "./Components/hand"
+
 function App() {
-  return <div className="App"></div>
+  return <Hand/>
 }
 
 export default App
