@@ -7,7 +7,7 @@ const BlackJack = {
     for (let i = 0; i < numOfDecks; i++) {
       for (const suit of suits) {
         for (const rank of ranks) {
-          deck.push(suit + rank)
+          deck.push({ suit, rank })
         }
       }
     }

@@ -1,22 +1,23 @@
-import { useState, useEffect } from "react"
-import axios from "axios"
-import Card from "./Components/card"
+import { useEffect } from "react"
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom"
+import { useDispatch } from "react-redux"
+import Game from "./Components/game"
+import { getDeck } from "./reducers/deck/action"
 
 function App() {
-  const [deck, setDeck] = useState([])
+  const dispatch = useDispatch()
 
   useEffect(() => {
-    const getADeck = async () => {
-      const { data } = await axios.get(`http://localhost:4000/deck/1`)
-      setDeck(data)
-    }
+    dispatch(getDeck(1))
+  }, [dispatch])
 
-    getADeck()
-  }, [])
-
-  console.log(deck)
-
-  return <Card rank={"1"} suit={"C"} shown={true} />
+  return (
+    <Router>
+      <Switch>
+        <Route exact path="/" component={Game} />
+      </Switch>
+    </Router>
+  )
 }
 
 export default App
