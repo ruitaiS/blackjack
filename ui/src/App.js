@@ -1,7 +1,7 @@
-import Hand from "./Components/hand"
+import Card from "./Components/card"
 
 function App() {
-  return <Hand/>
+  return <Card rank={5} suit="C" shown={true}/>
 }
 
 export default App
