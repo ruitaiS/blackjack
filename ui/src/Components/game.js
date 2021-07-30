@@ -65,6 +65,14 @@ const Game = () => {
     }
   ]
 
+  /*
+  let game = {
+    phase: "bet",
+    turn: 1,
+    deck: new Deck(),
+    players: {players},
+  }*/
+
 
   //Eventually possibly change so DealerPanel and PlayerPanel only need the list of players and the ID to look for
   return (
@@ -72,6 +80,7 @@ const Game = () => {
       <ScoreBoard players={players} phase={phase}/>
       <DealerPanel hand={hand2} phase={phase}/>
       <PlayerPanel hand={hand} balance={9999} phase={phase}/>
+      
       <Card rank={rank} suit={suit} shown={true} />
       <button onClick={handleIndexChange}>next card</button>
     </div>
