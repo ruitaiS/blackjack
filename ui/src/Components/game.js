@@ -59,6 +59,7 @@ const Game = () => {
       name: "Peter",
       id: "5678",
       balance: 1000,
+      bet:20,
       hand: [{rank: "5", suit:"C"}, {rank:"6", suit:"D"}, {rank:"8", suit:"H"}],
       active: false
     }
@@ -68,8 +69,8 @@ const Game = () => {
   //Eventually possibly change so DealerPanel and PlayerPanel only need the list of players and the ID to look for
   return (
     <div>
-      <DealerPanel hand={hand2} phase={phase}/>
       <ScoreBoard players={players} phase={phase}/>
+      <DealerPanel hand={hand2} phase={phase}/>
       <PlayerPanel hand={hand} balance={9999} phase={phase}/>
       <Card rank={rank} suit={suit} shown={true} />
       <button onClick={handleIndexChange}>next card</button>
