@@ -6,7 +6,7 @@ import Card from "./card";
 class PlayerPanel extends Component{
     constructor(props){
         super(props);
-        //phase: bet / play / wait
+        //phase: bet / player / dealer
         //balance
         //hand: [{value: 1, suit: "C"}, {value:2, suit: "D"}]
 
@@ -35,7 +35,7 @@ class PlayerPanel extends Component{
 
     bet() {
         let amt = prompt("You have "+this.props.balance+".\nHow much would you like to bet?", 100);
-        if (amt == null || amt == "") {
+        if (amt == null || amt === "") {
             console.log("User cancelled the prompt.")
         } else {
             console.log("Bet "+amt)

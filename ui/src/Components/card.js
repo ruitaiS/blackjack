@@ -33,7 +33,9 @@ class Card extends Component {
             alt="card"
           />
         ) : (
-          <img src={process.env.PUBLIC_URL + "/img/gray_back.png"} alt="cardback" />
+          <img src={process.env.PUBLIC_URL + "/img/gray_back.png"}
+          style={{ width: "200px", height: "300px" }}
+          alt="cardback" />
         )}
       </div>
     )

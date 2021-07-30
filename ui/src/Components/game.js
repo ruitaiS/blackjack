@@ -3,7 +3,9 @@ import { useDispatch } from "react-redux"
 import { useSelector } from "react-redux"
 import { getDeck } from "../reducers/deck/action"
 import Card from "./card"
+
 import PlayerPanel from "./playerPanel"
+import DealerPanel from "./dealerPanel"
 
 const Game = () => {
   const dispatch = useDispatch()
@@ -29,11 +31,16 @@ const Game = () => {
   }
 
   const { rank, suit } = deck[index]
+
+  //Placeholder for now
+  let phase = "bet"
   let hand = [{rank: "1", suit:"C"}, {rank:"2", suit:"D"}, {rank:"4", suit:"H"}]
+  let hand2 = [{rank: "1", suit:"D"}, {rank:"2", suit:"D"}]
 
   return (
     <div>
-      <PlayerPanel hand={hand} balance={9999}/>
+      <DealerPanel hand={hand2} phase={phase}/>
+      <PlayerPanel hand={hand} balance={9999} phase={phase}/>
       <Card rank={rank} suit={suit} shown={true} />
       <button onClick={handleIndexChange}>next card</button>
     </div>
