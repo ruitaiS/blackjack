@@ -15,11 +15,6 @@ class DealerPanel extends Component{
     }
 
     render(){
-
-        console.log(this.props.hand.map(card=> 
-            <Card rank={card.rank} suit={card.suit} shown={true} />
-            )
-        )
         const handStyle = {
             backgroundColor: 'green',
             display: 'flex',
