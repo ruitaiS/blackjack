@@ -1,7 +1,7 @@
-import React from "react"
+import PlayerActions from "../../Components/playerActions/playerActions"
 
 const MultiplayerPage = () => {
-  return <div>Multiplayer</div>
+  return <PlayerActions />
 }
 
 export default MultiplayerPage

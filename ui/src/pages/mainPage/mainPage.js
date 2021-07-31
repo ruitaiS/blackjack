@@ -1,3 +1,4 @@
+import { useState } from "react"
 import { Link } from "react-router-dom"
 
 import "./mainPage.css"
@@ -35,7 +36,7 @@ const MainPage = () => {
       </div>
 
       <div className="main-page-button-container">
-        <Link to="/single/player" className="main-page-buttons">
+        <Link to="/single/set-up" className="main-page-buttons">
           single player
         </Link>
         <Link to="/multi/player" className="main-page-buttons">

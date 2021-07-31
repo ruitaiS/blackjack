@@ -7,6 +7,9 @@ export const deck = (state = initialState, action) => {
     case "GET_DECK":
       return { deck: [...action.data] }
 
+    case "UPDATE_DECK":
+      return { deck: [...action.deck] }
+
     default:
       return state
   }
