@@ -1,0 +1,54 @@
+.main-page-container {
+  width: 1200px;
+  margin: 0 auto;
+}
+
+.main-page-header {
+  text-align: center;
+}
+
+.main-page-heading {
+  padding: 20px 30px;
+}
+
+.main-page-rules {
+  padding: 20px;
+  list-style: none;
+}
+
+.main-page-img-ul {
+  display: flex;
+  justify-content: center;
+  list-style: none;
+  padding: 20px;
+}
+
+.main-page-img {
+  height: 100%;
+}
+
+.main-page-img-container {
+  height: 200px;
+  width: 100px;
+}
+
+.main-page-button-container {
+  display: flex;
+  justify-content: center;
+  padding: 50px;
+}
+
+.main-page-buttons {
+  background-color: #000;
+  color: #fff;
+  font-size: 20px;
+  margin: 10px 20px;
+  padding: 20px;
+  border: none;
+  text-decoration: none;
+}
+
+.main-page-buttons:hover {
+  color: #000;
+  background-color: #d3d3d3;
+}

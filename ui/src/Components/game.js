@@ -7,11 +7,11 @@ import Card from "./card"
 const Game = () => {
   const dispatch = useDispatch()
   const { deck } = useSelector(state => state.deck)
-  const [index, setIndex] = useState(0)
+  const [index, setIndex] = useState(47)
 
   const handleNewDeck = () => {
     dispatch(getDeck(1))
-    setIndex(0)
+    setIndex(47)
   }
 
   const handleIndexChange = () => {

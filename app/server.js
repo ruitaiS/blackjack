@@ -4,6 +4,10 @@ import bodyParser from "body-parser"
 import mongoose from "mongoose"
 import dotenv from "dotenv"
 
+// socket io
+import { Server } from "socket.io"
+import { createServer } from "http"
+
 // route imports
 import authRoutes from "./routes/auth/index.js"
 import deckRoutes from "./routes/deck/index.js"

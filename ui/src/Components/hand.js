@@ -1,12 +1,12 @@
-import {Component} from "react";
+import { Component } from "react"
 
-class Hand extends Component{
-    constructor(props){
-        super(props);
-        //
-    }
+class Hand extends Component {
+  // constructor(props){
+  //     super(props);
+  //     //
+  // }
 
-    /*
+  /*
     function(){
         console.log(this.api.account(this.callback))
         //this.callback("yo")
@@ -17,16 +17,16 @@ class Hand extends Component{
     }
     */
 
-    render(){
-        let rank = 6
-        let suit = 'C'
-        return(
-            <div>
-                This is a hand of Cards
-                <img src={process.env.PUBLIC_URL + '/img/'+rank.toString()+suit+'.png'} alt="card"/>
-            </div>
-        )
-    }
+  render() {
+    let rank = 6
+    let suit = "C"
+    return (
+      <div>
+        This is a hand of Cards
+        <img src={process.env.PUBLIC_URL + "/img/" + rank.toString() + suit + ".png"} alt="card" />
+      </div>
+    )
+  }
 }
 
-export default Hand;
+export default Hand

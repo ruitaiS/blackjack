@@ -1,20 +1,17 @@
 import Tournament from "../../models/tournament.js"
+import User from "../../models/user.js"
 
 export const createTournament = async (req, res) => {
-  const { username, balance } = req.body
+  const { username, balance, numOfDecks } = req.body
   try {
-    const tournament = await new Tournament({
-      players: [
-        {
-          username,
-          balance
-        }
-      ]
+    const tournament = new Tournament({
+      players: [{ username, balance }],
+      numOfDecks
     })
 
     tournament.save()
 
-    res.status(201).json(tournament)
+    res.status(200).json(tournament)
   } catch (err) {
     console.log(err)
   }
@@ -25,13 +22,15 @@ export const joinTournament = async (req, res) => {
   const { username, balance } = req.body
 
   try {
-    const updatedTournament = await Tournament.findByIdAndUpdate(
+    await Tournament.findByIdAndUpdate(
       { _id: tournamentId },
       { $push: { players: { username, balance } } },
-      { new: true }
+      { new: true },
+      (err, tournament) => {
+        if (err) return res.status(400)
+        return res.status(200)
+      }
     )
-
-    res.status(200).json(updatedTournament)
   } catch (err) {
     console.log(err)
   }
@@ -39,16 +38,18 @@ export const joinTournament = async (req, res) => {
 
 export const updateTournamentWithPlayerHands = async (req, res) => {
   const { tournamentId } = req.params
-  const { hands } = req.body
+  const { username, balance, hand } = req.body
 
   try {
-    const updatedTournament = await Tournament.findByIdAndUpdate(
+    await Tournament.findByIdAndUpdate(
       { _id: tournamentId },
-      { hands },
-      { new: true }
+      { $push: { hands: { username, balance, hand } } },
+      { new: true },
+      (err, tournament) => {
+        if (err) return res.status(400)
+        return res.status(200)
+      }
     )
-
-    res.status(200).json(updateTournamentWithPlayerHands)
   } catch (err) {
     console.log(err)
   }
@@ -56,16 +57,20 @@ export const updateTournamentWithPlayerHands = async (req, res) => {
 
 export const updateTournamentWithWinner = async (req, res) => {
   const { tournamentId } = req.params
-  const { winner } = req.body
+  const { userId } = req.body
 
   try {
-    const updatedTournament = await Tournament.findByIdAndUpdate(
+    const winner = await User.findOne({ _id: userId })
+
+    await Tournament.findByIdAndUpdate(
       { _id: tournamentId },
       { winner },
-      { new: true }
+      { new: true },
+      (err, tournament) => {
+        if (err) return res.status(400)
+        return res.status(200)
+      }
     )
-
-    res.status(200).json(updatedTournament)
   } catch (err) {
     console.log(err)
   }

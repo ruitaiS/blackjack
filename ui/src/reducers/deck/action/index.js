@@ -1,7 +1,7 @@
-import { getADeck } from "../../../api/Deck"
+import axios from "axios"
 
 export const getDeck = numOfDecks => async dispatch => {
-  const deck = await getADeck(numOfDecks)
+  const { data } = await axios.get(`http://localhost:4000/deck/${numOfDecks}`)
 
-  dispatch({ type: "GET_DECK", data: deck })
+  dispatch({ type: "GET_DECK", data })
 }
