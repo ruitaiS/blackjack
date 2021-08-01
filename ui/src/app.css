@@ -1,0 +1,26 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #35654d;
+}
+
+.center-container {
+  position: relative;
+  height: 100vh;
+}
+
+.center {
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -30%);
+}
+
+.custom-btn {
+  background-color: transparent;
+  border: none;
+}

@@ -5,20 +5,26 @@ const tournamentSchema = mongoose.Schema({
     {
       _id: false,
       username: { type: String },
-      balance: { type: Number }
+      balance: { type: Number },
+      currentHand: [
+        {
+          _id: false,
+          suite: { type: String },
+          rank: { type: String }
+        }
+      ]
     }
   ],
-  winner: { type: String, default: null }
-  // hands: [
-  //   [
-  //     {
-  //       _id: false,
-  //       username: { type: String },
-  //       hand: { type: String },
-  //       won: { type: Boolean }
-  //     }
-  //   ]
-  // ]
+  hands: [
+    {
+      _id: false,
+      username: { type: String },
+      balance: { type: Number },
+      hand: [{ rank: { type: String }, suit: { type: String } }]
+    }
+  ],
+  winner: { type: String, default: null },
+  numOfDecks: { type: Number }
 })
 
 const Tournament = mongoose.model("tournaments", tournamentSchema)

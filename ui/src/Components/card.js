@@ -20,20 +20,19 @@ class Card extends Component {
     */
 
   render() {
-    //let rank = 6
-    //let suit = 'C'
-    //let shown = true
+    const { shown, rank, suit } = this.props
 
     return (
       <div>
-        {this.props.shown ? (
+        {shown ? (
           <img
-            src={process.env.PUBLIC_URL + "/img/" + this.props.rank + this.props.suit + ".png"}
+            src={`${process.env.PUBLIC_URL}/img/${rank}${suit}.png`}
             style={{ width: "200px", height: "300px" }}
             alt="card"
           />
         ) : (
-          <img src={process.env.PUBLIC_URL + "/img/gray_back.png"}
+
+          <img src={`${process.env.PUBLIC_URL}/img/gray_back.png`}
           style={{ width: "200px", height: "300px" }}
           alt="cardback" />
         )}
