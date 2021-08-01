@@ -6,11 +6,39 @@ const initialState = {
 export const singlePlayer = (state = initialState, action) => {
   switch (action.type) {
     case "START_GAME":
-      return { players: [...action.data.players], deck: [...action.data.deck] }
+      return { ...state, players: [...action.data.players], deck: action.data.deck }
 
     case "UPDATE_GAME":
-      console.log(action)
-      return { players: [...action.data.players], deck: [...action.data.deck] }
+      const gameCopy = {
+        ...state,
+        players: [...state.players],
+        deck: [...state.deck]
+      }
+
+      gameCopy.deck = action.data.deck
+      gameCopy.players = action.data.players
+      return gameCopy
+
+    case "UPDATE_DECK":
+      const deckCopy = {
+        ...state,
+        players: [...state.players],
+        deck: [...state.deck]
+      }
+
+      deckCopy.deck = action.deck
+      return deckCopy
+
+    case "UPDATE_PLAYER_HAND":
+      const playerCopy = {
+        ...state,
+        players: [...state.players],
+        deck: [...state.deck]
+      }
+      let currentPlayer = playerCopy.players.filter(player => player.id === action.player.id)
+      currentPlayer = action.player
+
+      return playerCopy
 
     default:
       return state

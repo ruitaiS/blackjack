@@ -12,11 +12,11 @@ const SetUpSingPlayer = ({ setLoading }) => {
   const [numOfDeck, setNumOfDeck] = useState(1)
   const [players, setPlayers] = useState([
     {
-      player: "dealer",
+      name: "dealer",
       hand: []
     },
     {
-      player: user.username,
+      name: user.username,
       id: user.id,
       balance: user.balance,
       hand: []
