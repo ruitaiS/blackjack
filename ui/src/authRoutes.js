@@ -1,5 +1,5 @@
 import { Redirect, Route } from "react-router"
 
-export const AuthRoutes = ({ component: C, auth, ...rest }) => {
-  return <Route {...rest} render={props => (auth ? <C {...props} /> : <Redirect to="/login" />)} />
+export const AuthRoutes = ({ component: C, user, ...rest }) => {
+  return <Route {...rest} render={props => (!user ? <Redirect to="/login" /> : <C {...props} />)} />
 }

@@ -1,11 +1,11 @@
 // ** Redux Imports
 import { combineReducers } from "redux"
-import { deck } from "./deck/reducer"
-import { tournament } from "./tournament/reducer"
+import { auth } from "./auth/reducer"
+import { singlePlayer } from "./singlePlayer/reducer"
 
 const rootReducer = combineReducers({
-  deck,
-  tournament
+  singlePlayer,
+  auth
 })
 
 export default rootReducer

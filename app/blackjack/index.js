@@ -11,7 +11,7 @@ const BlackJack = {
         }
       }
     }
-    console.log("inside blackjac", deck)
+
     return deck
   },
 

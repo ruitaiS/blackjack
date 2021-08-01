@@ -19,7 +19,8 @@ export const signUp = async (req, res) => {
       const hashedPassword = await bcrypt.hash(password, 12)
       const newUser = await User.create({
         username,
-        password: hashedPassword
+        password: hashedPassword,
+        balance: "1000"
       })
 
       const accessToken = jwt.sign({ _id: newUser._id }, jwtConfig.secret, {
@@ -29,7 +30,16 @@ export const signUp = async (req, res) => {
         expiresIn: jwtConfig.refreshTokenExpireTime
       })
 
-      res.status(200).json({ user: newUser.username })
+      const user = {
+        user: {
+          username: newUser.username,
+          balance: newUser.balance
+        },
+        accessToken,
+        refreshToken
+      }
+
+      res.status(200).json(user)
     }
     // if user exists error
     res.status(400).json({ message: "User already exists with that username" })
@@ -44,7 +54,6 @@ export const signIn = async (req, res) => {
   try {
     // find existing user
     const existingUser = await User.find({ username })
-    console.log(existingUser)
 
     if (!existingUser.length) {
       return res.status(400).json({ message: "user doesn't exist" })
@@ -59,7 +68,11 @@ export const signIn = async (req, res) => {
       const refreshToken = jwt.sign({ _id: existingUser[0]._id }, jwtConfig.refreshTokenSecret, {
         expiresIn: jwtConfig.refreshTokenExpireTime
       })
-      const user = { id: existingUser[0]._id, username: existingUser[0].username }
+      const user = {
+        id: existingUser[0]._id,
+        username: existingUser[0].username,
+        balance: existingUser[0].balance
+      }
 
       return res.status(200).json({ user, accessToken, refreshToken })
     }

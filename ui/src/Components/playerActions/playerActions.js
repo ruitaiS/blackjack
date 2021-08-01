@@ -1,7 +1,13 @@
 import "./playerActions.css"
 
-const PlayerActions = () => {
-  return (
+const PlayerActions = ({ phase, start }) => {
+  return phase === "bet" ? (
+    <div className="player-action-group">
+      <button className="player-action-buttons" onClick={start}>
+        Start
+      </button>
+    </div>
+  ) : (
     <div className="player-action-group">
       <button className="player-action-buttons stay">Stay</button>
       <button className="player-action-buttons double">Double</button>

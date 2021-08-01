@@ -1,4 +1,5 @@
-import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom"
+import { useState, useEffect } from "react"
+import { Route, Switch, useLocation, Redirect } from "react-router-dom"
 import MainPage from "./pages/mainPage/mainPage"
 import SetUpSingPlayer from "./pages/single/setUpSingPlayer"
 import SinglePlayerPage from "./pages/single/singleplayerPage"
@@ -6,33 +7,25 @@ import MultiplayerPage from "./pages/multi/multiplayerPage"
 import Authentication from "./pages/auth/authentication"
 import { AuthRoutes } from "./authRoutes"
 import "bootstrap/dist/css/bootstrap.css"
-
-import { useEffect } from "react"
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom"
-import { useDispatch } from "react-redux"
-import Game from "./Components/game"
-import { getDeck } from "./reducers/deck/action"
-
+import "./app.css"
 
 function App() {
-  const auth = localStorage.getItem("user") ? false : true
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")))
+  const location = useLocation()
 
   useEffect(() => {
-    dispatch(getDeck(1))
-  }, [dispatch])
-
+    setUser(JSON.parse(localStorage.getItem("user")))
+  }, [location])
 
   return (
-    <Router>
-      <Switch>
-        <Route exact path="/login" component={Authentication} />
-        <AuthRoutes exact path="/main" component={MainPage} auth={auth} />
-        <AuthRoutes exact path="/single/set-up" component={SetUpSingPlayer} auth={auth} />
-        <AuthRoutes exact path="/single/player" component={SinglePlayerPage} auth={auth} />
-        <AuthRoutes exact path="/multi/player" component={MultiplayerPage} auth={auth} />
-        <Redirect to="/main" />
-      </Switch>
-    </Router>
+    <Switch>
+      <AuthRoutes exact path="/main" component={MainPage} user={user} />
+      <Route path="/login" component={Authentication} />
+      <AuthRoutes exact path="/single/set-up" component={SetUpSingPlayer} user={user} />
+      <AuthRoutes exact path="/single/player" component={SinglePlayerPage} user={user} />
+      <AuthRoutes path="/multi/player" component={MultiplayerPage} user={user} />
+      <Redirect to="/login" />
+    </Switch>
   )
 }
 

@@ -8,6 +8,10 @@ const userSchema = mongoose.Schema({
   password: {
     type: String,
     required: true
+  },
+  balance: {
+    type: Number,
+    default: 1000
   }
 })
 

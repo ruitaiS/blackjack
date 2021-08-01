@@ -1,39 +1,31 @@
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { startHand } from "../../reducers/singlePlayer/action"
-import { getDeck } from "../../reducers/deck/action"
-import PlayerPanel from "../../Components/playerPanel"
+import PlayerPanel from "../../Components/playerPanel/playerPanel"
+import DealerPanel from "../../Components/dealerPanel/dealerPanel"
+import PlayerActions from "../../Components/playerActions/playerActions"
 
 const SingleplayerPage = ({ numOfDecks }) => {
   const dispatch = useDispatch()
-  const { deck } = useSelector(state => state.deck)
-  const [loading, setLoading] = useState(true)
-  const [player, setPlayer] = useState([
-    {
-      player: "dealer",
-      hands: []
-    },
-    {
-      player: "playerOne",
-      hands: []
-    }
-  ])
-  useEffect(() => {}, [numOfDecks, dispatch])
+  const { players, deck } = useSelector(state => state.singlePlayer)
+  const { user } = useSelector(state => state.auth)
+  const dealer = players.filter(user => user.player === "dealer")
+  const player = players.filter(player => player.id === user.id)
+  const [phase, setPhase] = useState("bet")
 
-  const handleGameStart = () => {
-    dispatch(getDeck(numOfDecks))
-    dispatch(startHand(player, deck, "100"))
+  const handleDealHand = () => {
+    dispatch(startHand(players, deck))
   }
+
+  const hit = () => {}
+  const doubleDown = () => {}
+  const stay = () => {}
 
   return (
     <>
-      <PlayerPanel
-        player={player}
-        deck={deck}
-        start={handleGameStart}
-        loading={loading}
-        setLoading={setLoading}
-      />
+      <DealerPanel dealer={dealer[0]} />
+      {phase === "bet" ? <PlayerActions phase={phase} start={handleDealHand} /> : null}
+      <PlayerPanel player={player[0]} deck={deck} />
     </>
   )
 }

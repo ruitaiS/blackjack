@@ -8,25 +8,29 @@ import "./singlePlayer.css"
 const SetUpSingPlayer = ({ setLoading }) => {
   const history = useHistory()
   const dispatch = useDispatch()
-  // const { user } = useSelector(state => state.user)
-  const [singlePlayer, setSinglePlayer] = useState({
-    player: {
-      name: "Terry",
-      amount: 50
+  const { user } = useSelector(state => state.auth)
+  const [numOfDeck, setNumOfDeck] = useState(1)
+  const [players, setPlayers] = useState([
+    {
+      player: "dealer",
+      hand: []
     },
-    numOfDecks: 1
-  })
+    {
+      player: user.username,
+      id: user.id,
+      balance: user.balance,
+      hand: []
+    }
+  ])
 
   const handleSubmit = e => {
     e.preventDefault()
 
-    dispatch(startGame(singlePlayer.player, singlePlayer.numOfDecks))
-    history.push("/single/player")
+    dispatch(startGame(players, numOfDeck, history))
   }
 
   const handleChange = e => {
-    const { name, value } = e.target
-    setSinglePlayer(state => ({ ...state, [name]: value }))
+    setNumOfDeck(e.target.value)
   }
 
   return (
@@ -36,8 +40,8 @@ const SetUpSingPlayer = ({ setLoading }) => {
         <form onSubmit={handleSubmit} className="w-30 mt-4">
           <div className="card" style={{ width: "18rem" }}>
             <div className="card-body">
-              <h5 className="card-title">Name: {singlePlayer.player.name}</h5>
-              <p className="card-text">Bank: {singlePlayer.player.amount}</p>
+              <h5 className="card-title">Name: {user.username}</h5>
+              <p className="card-text">Bank: {user.balance}</p>
             </div>
           </div>
           <div className="form-group mt-4">
@@ -47,7 +51,7 @@ const SetUpSingPlayer = ({ setLoading }) => {
               id="numOfDecks"
               name="numOfDecks"
               onChange={handleChange}
-              value={singlePlayer.numOfDecks}
+              value={user.numOfDecks}
             >
               <option>1</option>
               <option>4</option>

@@ -1,7 +1,7 @@
 import axios from "axios"
 import { useState } from "react"
 import { useDispatch } from "react-redux"
-import { Redirect, useHistory } from "react-router"
+import { useHistory } from "react-router-dom"
 import { handleLogin } from "../../reducers/auth/action"
 
 const Authentication = () => {
@@ -14,8 +14,6 @@ const Authentication = () => {
     confirmPassword: ""
   })
 
-  if (localStorage.getItem("user") !== null) return <Redirect to="/main" />
-
   const handleSubmit = async e => {
     e.preventDefault()
 
@@ -26,11 +24,15 @@ const Authentication = () => {
     if (auth === "register") {
       const response = await axios.post("http://localhost:4000/auth/register", userData)
       const { data } = response
-      if (response.status === 200) return dispatch(handleLogin(data, history))
+      if (response.status === 200) {
+        dispatch(handleLogin(data, history))
+      }
     } else {
       const response = await axios.post("http://localhost:4000/auth/login", userData)
       const { data } = response
-      if (response.status === 200) return dispatch(handleLogin(data, history))
+      if (response.status === 200) {
+        dispatch(handleLogin(data, history))
+      }
     }
   }
 
