@@ -7,10 +7,20 @@ import Authentication from "./pages/auth/authentication"
 import { AuthRoutes } from "./authRoutes"
 import "bootstrap/dist/css/bootstrap.css"
 
-import "./app.css"
+import { useEffect } from "react"
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom"
+import { useDispatch } from "react-redux"
+import Game from "./Components/game"
+import { getDeck } from "./reducers/deck/action"
+
 
 function App() {
   const auth = localStorage.getItem("user") ? false : true
+
+  useEffect(() => {
+    dispatch(getDeck(1))
+  }, [dispatch])
+
 
   return (
     <Router>

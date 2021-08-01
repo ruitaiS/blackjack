@@ -10,6 +10,12 @@ class PlayerPanel extends Component {
     //balance
     //hand: [{value: 1, suit: "C"}, {value:2, suit: "D"}]
 
+class PlayerPanel extends Component{
+    constructor(props){
+        super(props);
+        //phase: bet / player / dealer
+        //balance
+        //hand: [{value: 1, suit: "C"}, {value:2, suit: "D"}]
     //Functions that need to get bound to this instance
     this.hit = this.hit.bind(this)
     this.stay = this.stay.bind(this)
@@ -25,15 +31,25 @@ class PlayerPanel extends Component {
 
   //Placeholder Functions for now
 
-  hit() {
-    console.log("Hit")
-  }
-  stay() {
-    console.log("Stay")
-  }
-  double() {
-    console.log("Double")
-  }
+    bet() {
+        let amt = prompt("You have "+this.props.balance+".\nHow much would you like to bet?", 100);
+        if (amt == null || amt === "") {
+            console.log("User cancelled the prompt.")
+        } else {
+            console.log("Bet "+amt)
+        }
+        
+      }
+  
+    hit() {
+      console.log("Hit")
+    }
+    stay() {
+      console.log("Stay")
+    }
+    double() {
+      console.log("Double")
+    }
 
   bet() {
     let amt = prompt("You have " + this.props.balance + ".\nHow much would you like to bet?", 100)
