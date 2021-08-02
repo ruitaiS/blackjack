@@ -5,7 +5,7 @@ import { useHistory } from "react-router"
 
 import "./singlePlayer.css"
 
-const SetUpSingPlayer = ({ setLoading }) => {
+const SetUpSingPlayer = () => {
   const history = useHistory()
   const dispatch = useDispatch()
   const { user } = useSelector(state => state.auth)

@@ -1,19 +1,22 @@
 import Card from "../card/card"
 import "./dealerPanel.css"
 
-const DealerPanel = ({ dealer, tally }) => {
+const DealerPanel = ({ dealer, tally, turn, deck }) => {
   const { hand } = dealer
+
   return (
     <>
       <div className="dealer-panel flex-center">
-        {hand.length ? (
+        {!turn && hand.length ? (
           <>
-          <Card shown={false} rank={hand[0]?.rank} suit={hand[0]?.suit} />
-          <Card shown={true} rank={hand[1]?.rank} suit={hand[1]?.suit} />
+            <Card shown={turn} rank={hand[0]?.rank} suit={hand[0]?.suit} />
+            <Card shown={true} rank={hand[1]?.rank} suit={hand[1]?.suit} />
           </>
-        ) : null}
+        ) : (
+          dealer.hand.map(card => <Card shown={true} rank={card.rank} suit={card.suit} />)
+        )}
       </div>
-      <h3 className="text-center">Dealer has: {tally(dealer.hand[1])}</h3>
+      <h3 className="text-center">Dealer has: {turn ? tally(hand) : tally(hand[1])}</h3>
     </>
   )
 }
