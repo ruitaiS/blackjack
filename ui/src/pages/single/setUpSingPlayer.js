@@ -2,6 +2,7 @@ import { useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { startGame } from "../../reducers/singlePlayer/action"
 import { useHistory } from "react-router"
+import useDeck from "../../hooks/useDeck"
 
 import "./singlePlayer.css"
 
@@ -23,10 +24,11 @@ const SetUpSingPlayer = () => {
     }
   ])
 
+  const deck = useDeck(numOfDeck)
   const handleSubmit = e => {
     e.preventDefault()
 
-    dispatch(startGame(players, numOfDeck, history))
+    dispatch(startGame(players, deck, history))
   }
 
   const handleChange = e => {

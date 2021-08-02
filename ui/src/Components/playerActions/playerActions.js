@@ -1,53 +1,30 @@
-import { useDispatch } from "react-redux"
-import { dealACardToPlayer } from "../../reducers/singlePlayer/action"
 import "./playerActions.css"
 
-const PlayerActions = ({
-  player,
-  phase,
-  start,
-  setPhase,
-  deck,
-  userId,
-  setTurn,
-  turn,
-  dealerTurn,
-  hit
-}) => {
-  const dispatch = useDispatch()
-  const handleStart = () => {
-    start()
-    setPhase("action")
-  }
-
-  const stay = () => {
-    setTurn({
-      dealer: true,
-      player: false
-    })
-    dealerTurn()
-  }
-
-  const doubleDown = () => {}
-
+const PlayerActions = ({ player, start, dealerTurn, hit, turn, outcome }) => {
   return (
     <>
-      {phase === "ready" && (
+      {!turn.player && (
         <div className="player-action-group">
-          <button className="player-action-buttons" onClick={handleStart}>
-            Start
+          <button className="player-action-buttons" onClick={() => start()}>
+            Deal
           </button>
         </div>
       )}
-      {phase === "action" && (
+      {turn.player && (
         <div className="player-action-group">
-          <button className="player-action-buttons stay" onClick={stay}>
+          <button className="player-action-buttons stay" onClick={() => dealerTurn()}>
             Stay
           </button>
           <button className="player-action-buttons double">Double</button>
           <button className="player-action-buttons hit" onClick={() => hit(player)}>
             Hit
           </button>
+        </div>
+      )}
+      {turn.end && (
+        <div className="player-action-group">
+          <h3>{outcome}</h3>
+          <button className="player-action-buttons hit">New</button>
         </div>
       )}
     </>

@@ -1,10 +1,9 @@
+/* eslint-disable array-callback-return */
 import axios from "axios"
 
-export const startGame = (players, numOfDecks, history) => async dispatch => {
+export const startGame = (players, deck, history) => async dispatch => {
   try {
-    const { data } = await axios.get(`http://localhost:4000/deck/${numOfDecks}`)
-
-    dispatch({ type: "START_GAME", data: { deck: data, players } })
+    dispatch({ type: "START_GAME", data: { deck, players } })
     history.push("/single/player")
   } catch (err) {
     console.log(err)
@@ -12,6 +11,12 @@ export const startGame = (players, numOfDecks, history) => async dispatch => {
 }
 
 export const startHand = (players, deck) => async dispatch => {
+  players.map(player => {
+    if (player.hand.length) {
+      player.hand = []
+    }
+  })
+
   // deal two cards to player and dealer
   for (let i = 0; i < 2; i++) {
     for (let j = 0; j < players.length; j++) {
@@ -38,7 +43,7 @@ export const getValue = hand => {
   for (let card of hand) {
     if (card.value < 11) {
       val += card.value
-      if (card.rank === 1) {
+      if (card.value === 1) {
         aceCount += 1
         val += card.value
       }

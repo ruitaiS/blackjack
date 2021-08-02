@@ -25,7 +25,6 @@ export const singlePlayer = (state = initialState, action) => {
         players: [...state.players],
         deck: [...state.deck]
       }
-      console.log(deckCopy)
       deckCopy.deck = action.deck
       return deckCopy
 
@@ -35,8 +34,6 @@ export const singlePlayer = (state = initialState, action) => {
         players: [...state.players],
         deck: [...state.deck]
       }
-      let currentPlayer = playerCopy.players.filter(player => player.id === action.player.id)
-      console.log("inside reducer", currentPlayer)
 
       return playerCopy
 
