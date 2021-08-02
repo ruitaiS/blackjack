@@ -1,15 +1,19 @@
-import Card from "../card"
+import Card from "../card/card"
 import "./dealerPanel.css"
 
-const DealerPanel = ({ dealer, dealerTotal }) => {
+const DealerPanel = ({ dealer, tally }) => {
+  const { hand } = dealer
   return (
     <>
-      <h3>Dealer has: {dealerTotal}</h3>
       <div className="dealer-panel flex-center">
-        {dealer.hand.map((card, index) => (
-          <Card key={index} rank={card.rank} suit={card.suit} shown={true} />
-        ))}
+        {hand.length ? (
+          <>
+          <Card shown={false} rank={hand[0]?.rank} suit={hand[0]?.suit} />
+          <Card shown={true} rank={hand[1]?.rank} suit={hand[1]?.suit} />
+          </>
+        ) : null}
       </div>
+      <h3 className="text-center">Dealer has: {tally(dealer.hand[1])}</h3>
     </>
   )
 }

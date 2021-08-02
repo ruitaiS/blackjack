@@ -1,8 +1,8 @@
-import { useState, useRef } from "react"
+import { useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { startHand, getValue, dealACardToPlayer } from "../../reducers/singlePlayer/action"
-import PlayerPanel from "../../Components/playerPanel/playerPanel"
 import DealerPanel from "../../Components/dealerPanel/dealerPanel"
+import PlayerPanel from "../../Components/playerPanel/playerPanel"
 import PlayerActions from "../../Components/playerActions/playerActions"
 
 const SingleplayerPage = ({ numOfDecks }) => {
@@ -16,15 +16,17 @@ const SingleplayerPage = ({ numOfDecks }) => {
 
   const [phase, setPhase] = useState("ready")
 
-  const handleDealHand = () => {
+  const start = () => {
     dispatch(startHand(players, deck))
   }
 
-  const playerTotal = () => {
-    return getValue(player[0].hand)
+  const tally = (hand) => {
+    console.log(hand)
+    if (hand?.length) {
+      return getValue(hand)
+    }
+    return hand?.value
   }
-
-  console.log("inside single player page", deck.length)
 
   const hit = () => {
     dispatch(dealACardToPlayer(player[0], deck, user.id))
@@ -34,12 +36,12 @@ const SingleplayerPage = ({ numOfDecks }) => {
 
   return (
     <>
-      <DealerPanel dealer={dealer[0]} />
+      <DealerPanel dealer={dealer[0]} tally={tally} />
       {phase === "ready" ? (
-        <PlayerActions phase={phase} start={handleDealHand} setPhase={setPhase} />
+        <PlayerActions phase={phase} start={start} setPhase={setPhase} />
       ) : null}
       {phase === "action" ? <PlayerActions phase={phase} hit={hit} setPhase={setPhase} /> : null}
-      <PlayerPanel player={player[0]} deck={deck} />
+      <PlayerPanel player={player[0]} deck={deck} tally={tally} />
     </>
   )
 }

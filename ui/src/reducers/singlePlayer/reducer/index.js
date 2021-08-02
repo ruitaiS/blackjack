@@ -25,7 +25,7 @@ export const singlePlayer = (state = initialState, action) => {
         players: [...state.players],
         deck: [...state.deck]
       }
-
+      console.log(deckCopy)
       deckCopy.deck = action.deck
       return deckCopy
 
