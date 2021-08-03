@@ -2,7 +2,7 @@ import { useDispatch } from "react-redux"
 import { stay, start, hit } from "../../reducers/singlePlayer/action"
 import "./playerActions.css"
 
-const PlayerActions = ({ status }) => {
+const PlayerActions = ({ status, statuses }) => {
   const dispatch = useDispatch()
   const handleGameStart = () => {
     const bet = 100
@@ -16,15 +16,17 @@ const PlayerActions = ({ status }) => {
   const handleStay = () => {
     dispatch(stay())
   }
+
+  const action = statuses.indexOf(status) === -1 ? false : true
+
   return (
     <>
       <div className="player-action-group">
-        {status === "win" && (
+        {action ? (
           <button className="player-action-buttons" onClick={handleGameStart}>
             Deal
           </button>
-        )}
-        {status === "action" && (
+        ) : (
           <>
             <button className="player-action-buttons stay" onClick={handleStay}>
               Stay
@@ -33,21 +35,6 @@ const PlayerActions = ({ status }) => {
               Hit
             </button>
           </>
-        )}
-        {status === "lose" && (
-          <button className="player-action-buttons" onClick={handleGameStart}>
-            Deal
-          </button>
-        )}
-        {status === "blackjack" && (
-          <button className="player-action-buttons" onClick={handleGameStart}>
-            Deal
-          </button>
-        )}
-        {status === "bet" && (
-          <button className="player-action-buttons" onClick={handleGameStart}>
-            Deal
-          </button>
         )}
       </div>
     </>
