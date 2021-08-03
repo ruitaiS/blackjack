@@ -1,59 +1,78 @@
 /* eslint-disable array-callback-return */
 import axios from "axios"
 
-export const startGame = (players, deck, history) => async dispatch => {
+export const initGame = (numOfDecks, bank, history) => async dispatch => {
   try {
-    dispatch({ type: "START_GAME", data: { deck, players } })
+    const { data } = await axios.get(`http://localhost:4000/deck/${numOfDecks}`)
+
+    dispatch({ type: "INIT", data: { deck: data, amount: bank } })
     history.push("/single/player")
   } catch (err) {
     console.log(err)
   }
 }
 
-export const startHand = (players, deck) => async dispatch => {
-  players.map(player => {
-    if (player.hand.length) {
-      player.hand = []
-    }
-  })
+export const start = bet => async (dispatch, getState) => {
+  const { singlePlayer } = getState()
+  // deal hands to dealer and player
+  dispatch({ type: "DEAL", bet })
+  // get total values
+  dispatch({ type: "TALLY" })
 
-  // deal two cards to player and dealer
-  for (let i = 0; i < 2; i++) {
-    for (let j = 0; j < players.length; j++) {
-      players[j].hand.push(deck[0])
-      deck.shift()
-    }
+  // if player either busts or hit blackjack
+  // change status
+  if (singlePlayer.playerScore >= 21) dispatch({ type: "OUTCOME" })
+}
+
+export const hit =
+  ({ turn }) =>
+  async (dispatch, getState) => {
+    const { singlePlayer } = getState()
+    // hit the player with a card
+    dispatch({ type: "HIT", turn })
+    // get new total value
+    dispatch({ type: "TALLY" })
+
+    // check if player busted or hit 21
+    if (singlePlayer.playerScore >= 21) dispatch({ type: "OUTCOME" })
   }
 
-  dispatch({ type: "UPDATE_GAME", data: { deck, players } })
+export const stay = () => async (dispatch, getState) => {
+  const { singlePlayer } = getState()
+
+  // check the deck to see if there are enough cards for next turn
+  // if not get new deck
+
+  if (singlePlayer.deck.length > 10)
+    // while dealer has less than 17 keep hitting dealer with a card
+    while (singlePlayer.dealerScore < 17) {
+      dispatch({ type: "TALLY" })
+      dispatch({ type: "HIT", turn: "dealer" })
+      break
+    }
+
+  //decide winner
+  dispatch({ type: "OUTCOME" })
 }
 
-export const dealACardToPlayer = (player, deck) => async dispatch => {
-  const card = deck[0]
-  player.hand.push(card)
-  deck.shift()
-
-  dispatch({ type: "UPDATE_DECK", deck })
-  dispatch({ type: "UPDATE_PLAYER_HAND", player })
-}
-
-export const getValue = hand => {
-  let val = 0
+export const getCardValue = cards => {
+  let value = 0
   let aceCount = 0
-  for (let card of hand) {
-    if (card.value < 11) {
-      val += card.value
-      if (card.value === 1) {
-        aceCount += 1
-        val += card.value
-      }
+
+  // loop over cards array and add their value to value
+  for (const card of cards) {
+    // add value to value
+    value += card.value
+    // count aces
+    if (card.value === 11) {
+      aceCount++
     }
   }
 
-  while (aceCount > 0 && val > 21) {
-    aceCount -= 1
-    val -= 10
+  // subtract 10 from value if value is over 21
+  if ((aceCount > 0) & (value > 21)) {
+    value -= 10
   }
 
-  return val
+  return value
 }

@@ -1,32 +1,34 @@
+import { useDispatch } from "react-redux"
+import { stay, start, hit } from "../../reducers/singlePlayer/action"
 import "./playerActions.css"
 
-const PlayerActions = ({ player, start, dealerTurn, hit, turn, outcome }) => {
+const PlayerActions = () => {
+  const dispatch = useDispatch()
+  const handleGameStart = () => {
+    const bet = 100
+    dispatch(start(bet))
+  }
+
+  const handleHit = () => {
+    dispatch(hit({ turn: "player" }))
+  }
+
+  const handleStay = () => {
+    dispatch(stay())
+  }
   return (
     <>
-      {!turn.player && (
-        <div className="player-action-group">
-          <button className="player-action-buttons" onClick={() => start()}>
-            Deal
-          </button>
-        </div>
-      )}
-      {turn.player && (
-        <div className="player-action-group">
-          <button className="player-action-buttons stay" onClick={() => dealerTurn()}>
-            Stay
-          </button>
-          <button className="player-action-buttons double">Double</button>
-          <button className="player-action-buttons hit" onClick={() => hit(player)}>
-            Hit
-          </button>
-        </div>
-      )}
-      {turn.end && (
-        <div className="player-action-group">
-          <h3>{outcome}</h3>
-          <button className="player-action-buttons hit">New</button>
-        </div>
-      )}
+      <div className="player-action-group">
+        <button className="player-action-buttons" onClick={handleGameStart}>
+          Deal
+        </button>
+        <button className="player-action-buttons stay" onClick={handleStay}>
+          Stay
+        </button>
+        <button className="player-action-buttons hit" onClick={handleHit}>
+          Hit
+        </button>
+      </div>
     </>
   )
 }
