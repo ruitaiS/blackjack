@@ -13,7 +13,8 @@ export const initGame = (numOfDecks, bank, history) => async dispatch => {
 }
 
 export const start = bet => async (dispatch, getState) => {
-  const { singlePlayer } = getState()
+  // TODO: check for length of the deck to see if new deck is required
+
   // deal hands to dealer and player
   dispatch({ type: "DEAL", bet })
   // get total values
@@ -21,35 +22,27 @@ export const start = bet => async (dispatch, getState) => {
 
   // if player either busts or hit blackjack
   // change status
-  if (singlePlayer.playerScore >= 21) dispatch({ type: "OUTCOME" })
+  if (getState().singlePlayer.playerScore >= 21 || getState().singlePlayer.dealerScore >= 21) {
+    dispatch({ type: "OUTCOME" })
+  }
 }
 
-export const hit =
-  ({ turn }) =>
-  async (dispatch, getState) => {
-    const { singlePlayer } = getState()
-    // hit the player with a card
-    dispatch({ type: "HIT", turn })
-    // get new total value
-    dispatch({ type: "TALLY" })
-
-    // check if player busted or hit 21
-    if (singlePlayer.playerScore >= 21) dispatch({ type: "OUTCOME" })
+export const hit = turn => async (dispatch, getState) => {
+  // hit the player with a card
+  dispatch({ type: "HIT", turn })
+  // get new total value
+  dispatch({ type: "TALLY" })
+  // check if player busted or hit 21
+  if (getState().singlePlayer.playerScore >= 21) {
+    dispatch({ type: "OUTCOME" })
   }
+}
 
 export const stay = () => async (dispatch, getState) => {
-  const { singlePlayer } = getState()
-
-  // check the deck to see if there are enough cards for next turn
-  // if not get new deck
-
-  if (singlePlayer.deck.length > 10)
-    // while dealer has less than 17 keep hitting dealer with a card
-    while (singlePlayer.dealerScore < 17) {
-      dispatch({ type: "TALLY" })
-      dispatch({ type: "HIT", turn: "dealer" })
-      break
-    }
+  // while dealer has less than 17 keep hitting dealer with a card
+  while (getState().singlePlayer.dealerScore <= 16) {
+    dispatch(hit("dealer"))
+  }
 
   //decide winner
   dispatch({ type: "OUTCOME" })
@@ -70,8 +63,9 @@ export const getCardValue = cards => {
   }
 
   // subtract 10 from value if value is over 21
-  if ((aceCount > 0) & (value > 21)) {
+  while (aceCount > 0 && value > 21) {
     value -= 10
+    aceCount--
   }
 
   return value

@@ -68,14 +68,15 @@ export const singlePlayer = (state = initialState, action) => {
       }
 
     case "OUTCOME":
+      const { dealerScore, playerScore, dealerHand } = state
+
       const outcome = () => {
-        const { dealerScore, playerScore, playerHand, dealerHand } = state
-        if (playerScore > 21 || dealerScore > playerScore) return status.LOSE
-        if (dealerScore > 21 || dealerScore < playerScore) return status.WIN
-        if ((playerScore === 21) & (playerHand.length === 2)) return status.BLACKJACK
-        if ((dealerScore === 21) & (dealerHand.length === 2) & (playerScore < 21)) return status.LOSE
-        if ((dealerScore === 21) & (playerScore < dealerScore)) return status.LOSE
-        if (dealerScore === playerScore) return status.PUSH
+        if (playerScore === dealerScore) return status.PUSH
+        if (playerScore === 21) return status.WIN
+        if (playerScore > 21) return status.LOSE
+        if (dealerScore > 21) return status.WIN
+        if (playerScore >= dealerScore) return status.WIN
+        if (playerScore < dealerScore) return status.LOSE
         return status.ACTION
       }
 
@@ -86,11 +87,14 @@ export const singlePlayer = (state = initialState, action) => {
         if (result === status.PUSH) return state.playerBank
       }
 
+      dealerHand.map(card => (card.face = false))
+
       return {
         ...state,
         status: outcome(),
         playerBank: bookkeeping(),
-        bet: 0
+        bet: 0,
+        dealerHand
       }
 
     default:
