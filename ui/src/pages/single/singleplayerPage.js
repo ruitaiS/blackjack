@@ -8,13 +8,14 @@ const SingleplayerPage = () => {
     state => state.singlePlayer
   )
 
-  // if (status === "win") alert("YOU WIN")
-  // if (status === "lose") alert("YOU LOSE")
-  // if (status === "blackjack") alert("BLACKJACK")
+
 
   return (
     <>
       <div>
+      {status === "win" && (<h2 className="text-center">You Win</h2>)}
+      {status === "lose" && (<h2 className="text-center">You Lost</h2>)}
+      {status === "blackjack" && (<h2 className="text-center">Blackjack! You Win</h2>)}
         <DealerPanel hand={dealerHand} score={dealerScore} />
         <PlayerActions status={status} />
         <PlayerPanel hand={playerHand} score={playerScore} />

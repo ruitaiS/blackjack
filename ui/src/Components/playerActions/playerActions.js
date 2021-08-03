@@ -44,6 +44,11 @@ const PlayerActions = ({ status }) => {
             Deal
           </button>
         )}
+        {status === "bet" && (
+          <button className="player-action-buttons" onClick={handleGameStart}>
+            Deal
+          </button>
+        )}
       </div>
     </>
   )
