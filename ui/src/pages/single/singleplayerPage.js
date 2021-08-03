@@ -8,16 +8,15 @@ const SingleplayerPage = () => {
     state => state.singlePlayer
   )
 
-
+  const statuses = ["win", "lose", "bet", "blackjack", "push"]
+  const statusIndex = statuses.indexOf(status)
 
   return (
     <>
       <div>
-      {status === "win" && (<h2 className="text-center">You Win</h2>)}
-      {status === "lose" && (<h2 className="text-center">You Lost</h2>)}
-      {status === "blackjack" && (<h2 className="text-center">Blackjack! You Win</h2>)}
+        {statusIndex !== -1 && <h2 className="text-center">{`${statuses[statusIndex]}`}</h2>}
         <DealerPanel hand={dealerHand} score={dealerScore} />
-        <PlayerActions status={status} />
+        <PlayerActions status={status} statuses={statuses} />
         <PlayerPanel hand={playerHand} score={playerScore} />
       </div>
     </>
