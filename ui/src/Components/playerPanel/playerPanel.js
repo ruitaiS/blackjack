@@ -1,15 +1,21 @@
-import Card from "../card"
+import Card from "../card/card"
 import "./playerPanel.css"
 
-const PlayerPanel = ({ player, deck, start }) => {
-  const { hand } = player
-
+const PlayerPanel = ({ hand, score }) => {
   return (
-    <div className="player-panel flex-center">
-      {hand.map(hand => (
-        <Card rank={hand.rank} suit={hand.suit} shown={true} />
-      ))}
-    </div>
+    <>
+      <h3 className="text-center">You have {score}</h3>
+      <div className="player-panel flex-center">
+        {hand.map((card, index) => (
+          <Card
+            key={`${card.suit}${card.rank}${index}`}
+            rank={card.rank}
+            suit={card.suit}
+            shown={true}
+          />
+        ))}
+      </div>
+    </>
   )
 }
 

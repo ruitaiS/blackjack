@@ -2,12 +2,13 @@ const BlackJack = {
   newDeck: numOfDecks => {
     const suits = ["S", "H", "D", "C"]
     const ranks = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13"]
+    const values = [11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10]
     const deck = []
 
     for (let i = 0; i < numOfDecks; i++) {
       for (const suit of suits) {
-        for (const rank of ranks) {
-          deck.push({ suit, rank })
+        for (let i = 0; i < ranks.length; i++) {
+          deck.push({ suit, rank: ranks[i], value: values[i] })
         }
       }
     }

@@ -9,7 +9,9 @@ import { createStore, applyMiddleware, compose } from "redux"
 const middleware = [thunk, createDebounce()]
 
 // ** Dev Tools
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
+const composeEnhancers =
+  (typeof window !== "undefined" && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) || compose
+
 const persistedStore = loadState()
 
 // ** Create store

@@ -1,0 +1,22 @@
+.card-img-container {
+  height: 190px;
+  width: 140px;
+}
+
+.card-img {
+  height: 100%;
+  width: 100%;
+}
+
+.fade-in {
+  animation: fadeIn 0.4s ease-in;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

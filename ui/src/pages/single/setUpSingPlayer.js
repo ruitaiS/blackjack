@@ -1,36 +1,29 @@
 import { useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { startGame } from "../../reducers/singlePlayer/action"
+import { initGame } from "../../reducers/singlePlayer/action"
 import { useHistory } from "react-router"
 
 import "./singlePlayer.css"
 
-const SetUpSingPlayer = ({ setLoading }) => {
+const SetUpSingPlayer = () => {
   const history = useHistory()
   const dispatch = useDispatch()
   const { user } = useSelector(state => state.auth)
-  const [numOfDeck, setNumOfDeck] = useState(1)
-  const [players, setPlayers] = useState([
-    {
-      player: "dealer",
-      hand: []
-    },
-    {
-      player: user.username,
-      id: user.id,
-      balance: user.balance,
-      hand: []
-    }
-  ])
+  const [numOfDecks, setNumOfDecks] = useState(1)
+  const [bank, setBank] = useState(500)
 
   const handleSubmit = e => {
     e.preventDefault()
 
-    dispatch(startGame(players, numOfDeck, history))
+    dispatch(initGame(numOfDecks, bank, history))
   }
 
-  const handleChange = e => {
-    setNumOfDeck(e.target.value)
+  const handleSetDeck = e => {
+    setNumOfDecks(e.target.value)
+  }
+
+  const handleSetBank = e => {
+    setBank(e.target.value)
   }
 
   return (
@@ -41,8 +34,18 @@ const SetUpSingPlayer = ({ setLoading }) => {
           <div className="card" style={{ width: "18rem" }}>
             <div className="card-body">
               <h5 className="card-title">Name: {user.username}</h5>
-              <p className="card-text">Bank: {user.balance}</p>
             </div>
+          </div>
+          <div className="form-group mt-4">
+            <label htmlFor="bankAmount">Start Amount</label>
+            <input
+              className="form-control"
+              id="bankAmount"
+              name="bankAmount"
+              type="number9"
+              onChange={handleSetBank}
+              value={bank}
+            />
           </div>
           <div className="form-group mt-4">
             <label htmlFor="numOfDecks">Number of decks</label>
@@ -50,8 +53,8 @@ const SetUpSingPlayer = ({ setLoading }) => {
               className="form-control"
               id="numOfDecks"
               name="numOfDecks"
-              onChange={handleChange}
-              value={user.numOfDecks}
+              onChange={handleSetDeck}
+              value={numOfDecks}
             >
               <option>1</option>
               <option>4</option>
