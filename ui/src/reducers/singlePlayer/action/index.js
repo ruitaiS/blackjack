@@ -3,7 +3,7 @@ import axios from "axios"
 
 export const initGame = (numOfDecks, bank, history) => async dispatch => {
   try {
-    const { data } = await axios.get(`http://localhost:4000/deck/${numOfDecks}`)
+    const { data } = await axios.get(`https://gentle-gorge-88181.herokuapp.com/deck/${numOfDecks}`)
 
     dispatch({ type: "INIT", data: { deck: data, amount: bank } })
     history.push("/single/player")

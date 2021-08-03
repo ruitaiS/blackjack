@@ -22,13 +22,13 @@ const Authentication = () => {
     }
 
     if (auth === "register") {
-      const response = await axios.post("http://localhost:4000/auth/register", userData)
+      const response = await axios.post("https://gentle-gorge-88181.herokuapp.com/auth/register", userData)
       const { data } = response
       if (response.status === 200) {
         dispatch(handleLogin(data, history))
       }
     } else {
-      const response = await axios.post("http://localhost:4000/auth/login", userData)
+      const response = await axios.post("https://gentle-gorge-88181.herokuapp.com/auth/login", userData)
       const { data } = response
       if (response.status === 200) {
         dispatch(handleLogin(data, history))
