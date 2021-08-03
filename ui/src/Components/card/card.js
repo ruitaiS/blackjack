@@ -5,19 +5,19 @@ const Card = ({ shown, rank, suit }) => {
     <div>
       {shown ? (
         <div className="card-img-container">
-        <img
-          src={`${process.env.PUBLIC_URL}/img/${rank}${suit}.png`}
-          className="card-img"
-          alt="card"
-        />
+          <img
+            src={`${process.env.PUBLIC_URL}/img/${rank}${suit}.png`}
+            className="card-img fade-in"
+            alt="card"
+          />
         </div>
       ) : (
         <div className="card-img-container">
-        <img
-          src={`${process.env.PUBLIC_URL}/img/gray_back.png`}
-          className="card-img"
-          alt="cardback"
-        />
+          <img
+            src={`${process.env.PUBLIC_URL}/img/gray_back.png`}
+            className="card-img fade-in"
+            alt="cardback"
+          />
         </div>
       )}
     </div>

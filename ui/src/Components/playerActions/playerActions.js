@@ -2,14 +2,12 @@ import { useDispatch } from "react-redux"
 import { stay, start, hit } from "../../reducers/singlePlayer/action"
 import "./playerActions.css"
 
-const PlayerActions = status => {
+const PlayerActions = ({ status }) => {
   const dispatch = useDispatch()
   const handleGameStart = () => {
     const bet = 100
     dispatch(start(bet))
   }
-
-  console.log(status)
 
   const handleHit = () => {
     dispatch(hit("player"))
@@ -21,21 +19,12 @@ const PlayerActions = status => {
   return (
     <>
       <div className="player-action-group">
-        <button className="player-action-buttons" onClick={handleGameStart}>
-          Deal
-        </button>
-        <button className="player-action-buttons stay" onClick={handleStay}>
-          Stay
-        </button>
-        <button className="player-action-buttons hit" onClick={handleHit}>
-          Hit
-        </button>
-        {status === "WIN" && (
+        {status === "win" && (
           <button className="player-action-buttons" onClick={handleGameStart}>
             Deal
           </button>
         )}
-        {status === "ACTION" && (
+        {status === "action" && (
           <>
             <button className="player-action-buttons stay" onClick={handleStay}>
               Stay
@@ -45,12 +34,12 @@ const PlayerActions = status => {
             </button>
           </>
         )}
-        {status === "LOSE" && (
+        {status === "lose" && (
           <button className="player-action-buttons" onClick={handleGameStart}>
             Deal
           </button>
         )}
-        {status === "BLACKJACK" && (
+        {status === "blackjack" && (
           <button className="player-action-buttons" onClick={handleGameStart}>
             Deal
           </button>

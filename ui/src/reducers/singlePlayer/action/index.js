@@ -40,7 +40,7 @@ export const hit = turn => async (dispatch, getState) => {
 
 export const stay = () => async (dispatch, getState) => {
   // while dealer has less than 17 keep hitting dealer with a card
-  while (getState().singlePlayer.dealerScore <= 16) {
+  while (getState().singlePlayer.dealerScore < 17) {
     dispatch(hit("dealer"))
   }
 

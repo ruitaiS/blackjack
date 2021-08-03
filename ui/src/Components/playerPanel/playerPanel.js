@@ -1,9 +1,10 @@
 import Card from "../card/card"
 import "./playerPanel.css"
 
-const PlayerPanel = ({ hand }) => {
+const PlayerPanel = ({ hand, score }) => {
   return (
-    <div>
+    <>
+      <h3 className="text-center">You have {score}</h3>
       <div className="player-panel flex-center">
         {hand.map((card, index) => (
           <Card
@@ -14,7 +15,7 @@ const PlayerPanel = ({ hand }) => {
           />
         ))}
       </div>
-    </div>
+    </>
   )
 }
 

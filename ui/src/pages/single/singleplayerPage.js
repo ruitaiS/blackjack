@@ -4,15 +4,20 @@ import PlayerPanel from "../../Components/playerPanel/playerPanel"
 import PlayerActions from "../../Components/playerActions/playerActions"
 
 const SingleplayerPage = () => {
-  const singlePlayer = useSelector(state => state.singlePlayer)
+  const { status, dealerHand, dealerScore, playerHand, playerScore } = useSelector(
+    state => state.singlePlayer
+  )
+
+  // if (status === "win") alert("YOU WIN")
+  // if (status === "lose") alert("YOU LOSE")
+  // if (status === "blackjack") alert("BLACKJACK")
 
   return (
     <>
       <div>
-        <h2>{singlePlayer.status}</h2>
-        <DealerPanel hand={singlePlayer.dealerHand} />
-        <PlayerActions status={singlePlayer.status} />
-        <PlayerPanel hand={singlePlayer.playerHand} />
+        <DealerPanel hand={dealerHand} score={dealerScore} />
+        <PlayerActions status={status} />
+        <PlayerPanel hand={playerHand} score={playerScore} />
       </div>
     </>
   )
