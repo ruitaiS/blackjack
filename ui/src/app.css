@@ -11,12 +11,22 @@ body {
 
 .flex-center {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
 }
 
+.flex-row {
+  display: flex;
+}
+
 .text-center {
   text-align: center;
+}
+
+.custom-btn {
+  background-color: transparent;
+  border: none;
 }
 
 .center-container {
@@ -30,9 +40,4 @@ body {
   top: 40%;
   left: 50%;
   transform: translate(-50%, -40%);
-}
-
-.custom-btn {
-  background-color: transparent;
-  border: none;
 }

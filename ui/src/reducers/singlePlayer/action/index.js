@@ -1,6 +1,8 @@
 /* eslint-disable array-callback-return */
 import axios from "axios"
 
+const log = ({ dealerScore, playerScore, status }) => `dealer: ${dealerScore}, player: ${playerScore}. Player ${status}`
+
 export const initGame = (numOfDecks, bank, history) => async dispatch => {
   try {
     const { data } = await axios.get(`https://gentle-gorge-88181.herokuapp.com/deck/${numOfDecks}`)
@@ -24,6 +26,17 @@ export const start = bet => async (dispatch, getState) => {
   // change status
   if (getState().singlePlayer.playerScore >= 21 || getState().singlePlayer.dealerScore >= 21) {
     dispatch({ type: "OUTCOME" })
+
+    const { singlePlayer } = getState()
+    dispatch({
+      type: "GAME_LOG",
+      data: {
+        playerScore: singlePlayer.playerScore,
+        dealerScore: singlePlayer.dealerScore,
+        status: singlePlayer.status,
+        deck: singlePlayer.deck.length
+      }
+    })
   }
 }
 
@@ -35,6 +48,17 @@ export const hit = turn => async (dispatch, getState) => {
   // check if player busted or hit 21
   if (getState().singlePlayer.playerScore >= 21) {
     dispatch({ type: "OUTCOME" })
+
+    const { singlePlayer } = getState()
+    dispatch({
+      type: "GAME_LOG",
+      data: {
+        playerScore: singlePlayer.playerScore,
+        dealerScore: singlePlayer.dealerScore,
+        status: singlePlayer.status,
+        deck: singlePlayer.deck.length
+      }
+    })
   }
 }
 
@@ -46,6 +70,19 @@ export const stay = () => async (dispatch, getState) => {
 
   //decide winner
   dispatch({ type: "OUTCOME" })
+
+  if (getState().singlePlayer.status !== "action" || getState().singlePlayer.status !== "bet") {
+    const { singlePlayer } = getState()
+    dispatch({
+      type: "GAME_LOG",
+      data: {
+        playerScore: singlePlayer.playerScore,
+        dealerScore: singlePlayer.dealerScore,
+        status: singlePlayer.status,
+        deck: singlePlayer.deck.length
+      }
+    })
+  }
 }
 
 export const getCardValue = cards => {

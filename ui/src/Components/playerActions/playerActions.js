@@ -20,24 +20,22 @@ const PlayerActions = ({ status, statuses }) => {
   const action = statuses.indexOf(status) === -1 ? false : true
 
   return (
-    <>
-      <div className="player-action-group">
-        {action ? (
-          <button className="player-action-buttons" onClick={handleGameStart}>
-            Deal
+    <div className="player-action-group">
+      {action ? (
+        <button className="player-action-buttons" onClick={handleGameStart}>
+          Deal
+        </button>
+      ) : (
+        <>
+          <button className="player-action-buttons stay" onClick={handleStay}>
+            Stay
           </button>
-        ) : (
-          <>
-            <button className="player-action-buttons stay" onClick={handleStay}>
-              Stay
-            </button>
-            <button className="player-action-buttons hit" onClick={handleHit}>
-              Hit
-            </button>
-          </>
-        )}
-      </div>
-    </>
+          <button className="player-action-buttons hit" onClick={handleHit}>
+            Hit
+          </button>
+        </>
+      )}
+    </div>
   )
 }
 

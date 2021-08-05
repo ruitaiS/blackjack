@@ -43,7 +43,7 @@ const Authentication = () => {
   }
 
   return (
-    <div className="w-100 center-container">
+    <div className="center-container">
       <div className="card center p-4">
         {auth === "login" ? <h3 className="mb-4">Login</h3> : <h3 className="mb-4">Register</h3>}
         <form onSubmit={handleSubmit}>
