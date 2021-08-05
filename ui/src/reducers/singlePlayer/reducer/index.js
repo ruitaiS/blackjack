@@ -25,6 +25,7 @@ const initialState = {
 export const singlePlayer = (state = initialState, action) => {
   switch (action.type) {
     case "INIT":
+      console.log(typeof action.data.amount)
       return {
         ...initialState,
         deck: action.data.deck,
@@ -36,6 +37,8 @@ export const singlePlayer = (state = initialState, action) => {
       let [p1, d1, p2, d2, ...afterDeal] = state.deck
       // face down for one of dealer cards
       d1 = { ...d1, face: true }
+
+      console.log(typeof action.bet)
       return {
         ...state,
         deck: afterDeal,
@@ -72,21 +75,25 @@ export const singlePlayer = (state = initialState, action) => {
       const { dealerScore, playerScore, playerHand, dealerHand } = state
 
       const outcome = () => {
+        if (playerScore === 21 && playerHand.length === 2) return status.BLACKJACK
         if (playerScore === 21 && dealerScore < 17) return status.ACTION
-        if (playerScore === dealerScore) return status.PUSH
         if (playerScore === 21 && playerHand.length > 2 && dealerScore > 16) return status.WIN
-        if (playerScore === 21) return status.BLACKJACK
+
+        if (playerScore === dealerScore) return status.PUSH
+
         if (playerScore > 21) return status.LOSE
         if (dealerScore > 21) return status.WIN
-        if (playerScore >= dealerScore) return status.WIN
+
+        if (playerScore > dealerScore) return status.WIN
         if (playerScore < dealerScore) return status.LOSE
+
         return status.ACTION
       }
 
       const bookkeeping = () => {
         const result = outcome()
-        if (result === status.LOSE) return state.playerBank - state.bet
-        if (result === status.WIN) return state.playerBank + state.bet
+        if (result === status.LOSE) return state.playerBank - +state.bet
+        if (result === status.WIN) return state.playerBank + +state.bet
         if (result === status.PUSH) return state.playerBank
       }
 

@@ -5,6 +5,7 @@ import "./gamelog.css"
 
 const Gamelog = () => {
   const { gameLog } = useSelector(state => state.singlePlayer)
+
   const ref = useRef()
 
   useEffect(() => {
@@ -20,9 +21,9 @@ const Gamelog = () => {
             {log.status === "blackjack"
               ? `${log.status}!!!!!!`
               : `dealer: ${log.dealerScore}, player: ${log.playerScore}`}
-              {log.status !== "lose" ?
-              `Won $${log.bet}, Current Balance: $${log.playerBank}` : `Lost $${log.bet}, Balance: $${log.playerBank}`  
-            }
+            {log.status !== "lose"
+              ? `Win, Current Balance: $${log.playerBank}`
+              : `Lost, Balance: $${log.playerBank}`}
           </li>
         ))}
         <li ref={ref}></li>

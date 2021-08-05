@@ -42,7 +42,7 @@ const SetUpSingPlayer = () => {
               className="form-control"
               id="bankAmount"
               name="bankAmount"
-              type="number9"
+              type="number"
               onChange={handleSetBank}
               value={bank}
             />
