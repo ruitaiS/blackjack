@@ -1,8 +1,6 @@
 /* eslint-disable array-callback-return */
 import axios from "axios"
 
-const log = ({ dealerScore, playerScore, status}) => `dealer: ${dealerScore}, player: ${playerScore}. Player ${status}`
-
 export const initGame = (numOfDecks, bank, history) => async dispatch => {
   try {
     const { data } = await axios.get(`https://gentle-gorge-88181.herokuapp.com/deck/${numOfDecks}`)

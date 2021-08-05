@@ -19,12 +19,13 @@ const BetPanel = ({ betAmt, setBetAmt, handleGameStart, playerBank }) => {
   }
 
   return (
-    <div style={{ display: "flex", flexDirection: "column" }}>
-      <div style={{ display: "flex", flexDirection: "row" }}>
-        <>Bet Size: {betAmt}</>
-        <>Bank: ${playerBank}</>
+    <div className="flex-center">
+      <div className="flex-row">
+        <p>Bet Size: {betAmt}</p>
+        <p>Bank: ${playerBank}</p>
       </div>
-      <div style={{ display: "flex", flexDirection: "row" }}>
+
+      <div className="flex-row">
         <button
           className="player-action-buttons"
           style={{ margin: "5px" }}
@@ -61,7 +62,7 @@ const BetPanel = ({ betAmt, setBetAmt, handleGameStart, playerBank }) => {
           +$100
         </button>
       </div>
-      <div style={{ display: "flex", flexDirection: "row", justifyContent: "center" }}>
+      <div className="flex-row">
         <button className="player-action-buttons" onClick={resetBet}>
           Reset Bet
         </button>

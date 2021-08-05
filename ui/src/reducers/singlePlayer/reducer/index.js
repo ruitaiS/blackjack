@@ -92,8 +92,10 @@ export const singlePlayer = (state = initialState, action) => {
 
       const bookkeeping = () => {
         const result = outcome()
+        if (result === status.push) return state.playerBank
         if (result === status.LOSE) return state.playerBank - +state.bet
         if (result === status.WIN) return state.playerBank + +state.bet
+        if (result === status.BLACKJACK) return state.playerBank + +state.bet
         if (result === status.PUSH) return state.playerBank
       }
 

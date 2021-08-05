@@ -10,7 +10,7 @@
 }
 
 .single-player-container {
-  min-height: 100vh;
+  min-height: 80vh;
   min-width: 60vw;
   position: relative;
 }

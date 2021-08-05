@@ -2,7 +2,7 @@ import axios from "axios"
 import { useState } from "react"
 import { useDispatch } from "react-redux"
 import { useHistory } from "react-router-dom"
-import { handleLogin } from "../../reducers/auth/action"
+import { handleLogin, handleRegister } from "../../reducers/auth/action"
 
 const Authentication = () => {
   const history = useHistory()
@@ -22,17 +22,9 @@ const Authentication = () => {
     }
 
     if (auth === "register") {
-      const response = await axios.post("https://gentle-gorge-88181.herokuapp.com/auth/register", userData)
-      const { data } = response
-      if (response.status === 200) {
-        dispatch(handleLogin(data, history))
-      }
+      dispatch(handleRegister(userData, history))
     } else {
-      const response = await axios.post("https://gentle-gorge-88181.herokuapp.com/auth/login", userData)
-      const { data } = response
-      if (response.status === 200) {
-        dispatch(handleLogin(data, history))
-      }
+      dispatch(handleLogin(userData, history))
     }
   }
 

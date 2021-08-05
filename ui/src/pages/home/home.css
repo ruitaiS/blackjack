@@ -1,0 +1,20 @@
+.nav-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.nav-btn-link {
+  border: none;
+  background-color: transparent;
+  color: #fff;
+}
+
+.nav-btn-link:active {
+  outline: none;
+}
+
+.img-container {
+  height: 70vh;
+  background-image: url("../../assets/jaroslaw-kwoczala-Xd3QWxZkjGg-unsplash.png");
+  object-fit: cover;
+}

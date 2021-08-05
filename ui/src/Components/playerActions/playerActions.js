@@ -5,11 +5,14 @@ import "./playerActions.css"
 
 import BetPanel from "../../Components/betPanel/betPanel"
 
-const PlayerActions = ({ status, statuses, betAmt, setBetAmt, playerBank }) => {
+const PlayerActions = ({ status, statuses, betAmt, setBetAmt, playerBank, deck }) => {
   const dispatch = useDispatch()
   const handleGameStart = () => {
     if (!betAmt) {
       alert("Please enter a bet.")
+    } else if (betAmt > playerBank) {
+      setBetAmt(0)
+      alert("There isn't enough money")
     } else {
       dispatch(start(betAmt))
     }
@@ -23,14 +26,25 @@ const PlayerActions = ({ status, statuses, betAmt, setBetAmt, playerBank }) => {
     dispatch(stay())
   }
 
-  if (playerBank === 0) {
+  if (deck.length < 6) {
     return (
-      <>
+      <div className="text-center">
+        <h3>Get a fresh deck for shuffle!</h3>
+        <p>
+          Go back to set up <Link to="/single/set-up">here</Link>
+        </p>
+      </div>
+    )
+  }
+
+  if (playerBank <= 0) {
+    return (
+      <div className="text-center">
         <h3>You lost!</h3>
         <p>
           Go back to set up <Link to="/single/set-up">here</Link>
         </p>
-      </>
+      </div>
     )
   }
 

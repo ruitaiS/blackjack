@@ -1,12 +1,33 @@
-export const handleLogin = (data, history) => async dispatch => {
-  try {
-    const { user, accessToken, refreshToken } = data
-    history.push("/main")
+import axios from "axios"
 
-    localStorage.setItem("user", JSON.stringify(user))
-    localStorage.setItem("accessToken", JSON.stringify(accessToken))
-    localStorage.setItem("refreshToken", JSON.stringify(refreshToken))
-    dispatch({ type: "LOGIN_USER", user })
+export const handleRegister = (userData, history) => async dispatch => {
+  try {
+    history.push("/main")
+    const { data } = await axios.post("https://gentle-gorge-88181.herokuapp.com/auth/register", {
+      userData
+    })
+
+    localStorage.setItem("user", JSON.stringify(data.user))
+    localStorage.setItem("accessToken", JSON.stringify(data.accessToken))
+    localStorage.setItem("refreshToken", JSON.stringify(data.refreshToken))
+    dispatch({ type: "LOGIN_USER", user: data.user })
+  } catch (err) {
+    console.log(err)
+  }
+}
+
+export const handleLogin = (userData, history) => async dispatch => {
+  try {
+    history.push("/main")
+    const { data } = await axios.post(
+      "https://gentle-gorge-88181.herokuapp.com/auth/login",
+      userData
+    )
+
+    localStorage.setItem("user", JSON.stringify(data.user))
+    localStorage.setItem("accessToken", JSON.stringify(data.accessToken))
+    localStorage.setItem("refreshToken", JSON.stringify(data.refreshToken))
+    dispatch({ type: "LOGIN_USER", user: data.user })
   } catch (err) {
     console.log(err)
   }

@@ -19,8 +19,7 @@ export const signUp = async (req, res) => {
       const hashedPassword = await bcrypt.hash(password, 12)
       const newUser = await User.create({
         username,
-        password: hashedPassword,
-        balance: "1000"
+        password: hashedPassword
       })
 
       const accessToken = jwt.sign({ _id: newUser._id }, jwtConfig.secret, {
@@ -31,15 +30,13 @@ export const signUp = async (req, res) => {
       })
 
       const user = {
-        user: {
-          username: newUser.username,
-          balance: newUser.balance
-        },
-        accessToken,
-        refreshToken
+        id: newUser._id,
+        username: newUser.username,
+        balance: newUser.balance
       }
+      newUser.save()
 
-      res.status(200).json(user)
+      res.status(200).json({ user, accessToken, refreshToken })
     }
     // if user exists error
     res.status(400).json({ message: "User already exists with that username" })
