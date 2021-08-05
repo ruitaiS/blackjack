@@ -19,7 +19,10 @@ const Gamelog = () => {
           <li className="game-log-item" key={`${log.status}${index}`}>
             {log.status === "blackjack"
               ? `${log.status}!!!!!!`
-              : `dealer: ${log.dealerScore}, player: ${log.playerScore}, ${log.status}`}
+              : `dealer: ${log.dealerScore}, player: ${log.playerScore}`}
+              {log.status !== "lose" ?
+              `Won $${log.bet}, Current Balance: $${log.playerBank}` : `Lost $${log.bet}, Balance: $${log.playerBank}`  
+            }
           </li>
         ))}
         <li ref={ref}></li>

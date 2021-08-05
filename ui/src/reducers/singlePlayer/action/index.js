@@ -1,7 +1,7 @@
 /* eslint-disable array-callback-return */
 import axios from "axios"
 
-const log = ({ dealerScore, playerScore, status }) => `dealer: ${dealerScore}, player: ${playerScore}. Player ${status}`
+const log = ({ dealerScore, playerScore, status}) => `dealer: ${dealerScore}, player: ${playerScore}. Player ${status}`
 
 export const initGame = (numOfDecks, bank, history) => async dispatch => {
   try {
@@ -34,7 +34,9 @@ export const start = bet => async (dispatch, getState) => {
         playerScore: singlePlayer.playerScore,
         dealerScore: singlePlayer.dealerScore,
         status: singlePlayer.status,
-        deck: singlePlayer.deck.length
+        deck: singlePlayer.deck.length,
+        bet: singlePlayer.bet,
+        playerBank: singlePlayer.playerBank
       }
     })
   }
@@ -56,7 +58,8 @@ export const hit = turn => async (dispatch, getState) => {
         playerScore: singlePlayer.playerScore,
         dealerScore: singlePlayer.dealerScore,
         status: singlePlayer.status,
-        deck: singlePlayer.deck.length
+        deck: singlePlayer.deck.length,
+        playerBank: singlePlayer.playerBank
       }
     })
   }
@@ -79,7 +82,8 @@ export const stay = () => async (dispatch, getState) => {
         playerScore: singlePlayer.playerScore,
         dealerScore: singlePlayer.dealerScore,
         status: singlePlayer.status,
-        deck: singlePlayer.deck.length
+        deck: singlePlayer.deck.length,
+        playerBank: singlePlayer.playerBank
       }
     })
   }
