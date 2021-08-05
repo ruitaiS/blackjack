@@ -1,6 +1,8 @@
 .player-action-group {
   display: flex;
   justify-content: center;
+  align-items: center;
+  height: 20vh;
 }
 
 .player-action-buttons {
@@ -14,6 +16,7 @@
   text-transform: uppercase;
   font-weight: 700;
   letter-spacing: 2px;
+  height: 60px;
 }
 
 .player-action-buttons:hover {

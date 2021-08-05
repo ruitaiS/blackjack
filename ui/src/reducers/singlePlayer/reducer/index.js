@@ -18,7 +18,8 @@ const initialState = {
   playerHand: [],
   playerScore: 0,
   playerBank: 0,
-  status: status.BET
+  status: status.BET,
+  gameLog: []
 }
 
 export const singlePlayer = (state = initialState, action) => {
@@ -68,11 +69,13 @@ export const singlePlayer = (state = initialState, action) => {
       }
 
     case "OUTCOME":
-      const { dealerScore, playerScore, dealerHand } = state
+      const { dealerScore, playerScore, playerHand, dealerHand } = state
 
       const outcome = () => {
+        if (playerScore === 21 && dealerScore < 17) return status.ACTION
         if (playerScore === dealerScore) return status.PUSH
-        if (playerScore === 21) return status.WIN
+        if (playerScore === 21 && playerHand.length > 2 && dealerScore > 16) return status.WIN
+        if (playerScore === 21) return status.BLACKJACK
         if (playerScore > 21) return status.LOSE
         if (dealerScore > 21) return status.WIN
         if (playerScore >= dealerScore) return status.WIN
@@ -95,6 +98,13 @@ export const singlePlayer = (state = initialState, action) => {
         playerBank: bookkeeping(),
         bet: 0,
         dealerHand
+      }
+
+    case "GAME_LOG":
+      const log = state.gameLog
+      return {
+        ...state,
+        gameLog: [...log, action.data]
       }
 
     default:
