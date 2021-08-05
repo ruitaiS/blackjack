@@ -10,17 +10,8 @@ const Nav = ({ user, logout }) => {
 
         <div className="navbar-nav">
           <a className="nav-item nav-link active" href="/main">
-            Home
+            Play
           </a>
-          {user ? (
-            <button onClick={logout} className="nav-item nav-link nav-btn-link">
-              Logout
-            </button>
-          ) : (
-            <a className="nav-item nav-link" href="/login">
-              Login
-            </a>
-          )}
         </div>
       </div>
     </nav>
