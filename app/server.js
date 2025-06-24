@@ -34,7 +34,7 @@ mongoose
     }
   )
   .then(() => {
-    app.listen(4000, (res, req) => {
+    app.listen(process.env.PORT || 4000, (res, req) => {
       console.log("app started at port 4000")
     })
   })
